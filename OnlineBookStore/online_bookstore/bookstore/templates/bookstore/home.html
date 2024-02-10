@@ -1,0 +1,310 @@
+<!-- bookstore/templates/book_list.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book List</title>
+  <link rel="stylesheet" href="{% static 'bookstore/style.css' %}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+
+</head>
+
+<body>
+  <div class="container2">
+<form method="GET" action="{% url 'search_results' %}">
+
+    <input type="text" id="searchInput" class="search" placeholder="Search books..." >
+    <div id="searchResults"></div>
+
+    <input class="searchkrle" type="button">
+    </form>
+  </div>
+  <h2>BEST SELLERS</h2>
+  <div class="danda"></div>
+  <div id="shopping-cart-icon" class="shopping-icon">0</div>
+
+
+
+  <input type="button" class="login" onclick="redirectToOtherPage()">
+
+
+  <input type="button" class="review" onclick="redirectToOtherPage2()">
+  <input type="button" class="purchase" onclick="redirectToOtherPage3()">
+
+
+
+  <div id="cart" style="display: none;">
+    <div class="cart">Cart</div>
+    <ul id="cart-items" class="cart-items"></ul>
+    <div style="margin-top: 10px;">
+      Total: Rs<span id="totalSum">0.00</span>
+    </div>
+    <button onclick="showCheckout()">Checkout</button>
+    <div id="checkoutContainer" style="display: none;">
+      <!-- Checkout form or details -->
+      <!-- Example: -->
+      <form onsubmit="placeOrder(event)">
+        <!-- Add your form fields here -->
+        <input type="text" placeholder="Name">
+        <input type="text" placeholder="Address">
+        <button type="submit">Place Order</button>
+      </form>
+    </div>
+    <div id="orderConfirmation" class="popup" style="display: none;">
+      <p>Your order has been placed. CHILLLL 🎉</p>
+    </div>
+  </div>
+
+  
+
+  <div class="slider-container">
+    <div class="cards-wrapper">
+      {% comment %} <div class="card" id="card1"> {% endcomment %}
+  
+  
+        {% comment %} <img src="https://static.wikia.nocookie.net/harrypotter/images/7/7a/Harry_Potter_and_the_Philosopher%27s_Stone_%E2%80%93_Bloomsbury_2014_Children%27s_Edition_%28Paperback_and_Hardcover%29.jpg/revision/latest?cb=20170109041611" {% endcomment %}
+          {% comment %} alt="" class="card_img"> {% endcomment %}
+        {% comment %} <div class="container3"> {% endcomment %}
+          {% comment %} <h4><b>Harry Potter and the Philosphoser's Stone</b></h4> {% endcomment %}
+          {% comment %} <p>Price:Rs 20.00</p> {% endcomment %}
+        {% comment %} </div> {% endcomment %}
+        {% comment %} <input type="button" class="plus2" {% endcomment %}
+          {% comment %} onclick="updateShoppingCart('Harry Potter and the Philosopher\'s Stone','https://static.wikia.nocookie.net/harrypotter/images/7/7a/Harry_Potter_and_the_Philosopher%27s_Stone_%E2%80%93_Bloomsbury_2014_Children%27s_Edition_%28Paperback_and_Hardcover%29.jpg/revision/latest?cb=20170109041611',20.00)"> {% endcomment %}
+      {% comment %} </div> {% endcomment %}
+      {% comment %} <div class="card" id="card2"> {% endcomment %}
+          {% comment %} <img src="https://cdn.kobo.com/book-images/fc350e01-1798-4dfd-941b-c04a42fd5727/1200/1200/False/srimad-bhagavad-gita-essence-1.jpg" {% endcomment %}
+              {% comment %} alt="" class="card_img"> {% endcomment %}
+          {% comment %} <div class="container3"> {% endcomment %}
+              {% comment %} <h4><b>The Bhagvad Gita</b></h4> {% endcomment %}
+              {% comment %} <p>Price:Rs 10.00</p> {% endcomment %}
+          {% comment %} </div> {% endcomment %}
+          {% comment %} <input type="button" class="plus2" {% endcomment %}
+              {% comment %} onclick="updateShoppingCart('The Bhagvad Gita','https://cdn.kobo.com/book-images/fc350e01-1798-4dfd-941b-c04a42fd5727/1200/1200/False/srimad-bhagavad-gita-essence-1.jpg',10.00)"> {% endcomment %}
+      {% comment %} </div> {% endcomment %}
+  
+      {% comment %} <div class="card" id="card3"> {% endcomment %}
+          {% comment %} <img src="https://m.media-amazon.com/images/I/41NHwJXCmnL.jpg" alt="" class="card_img"> {% endcomment %}
+          {% comment %} <div class="container3"> {% endcomment %}
+              {% comment %} <h4><b>Money making skills by Warren Buffet </b></h4> {% endcomment %}
+              {% comment %} <p>Price:Rs 25.00</p> {% endcomment %}
+          {% comment %} </div> {% endcomment %}
+          {% comment %} <input type="button" class="plus3" {% endcomment %}
+              {% comment %} onclick="updateShoppingCart('Money making skills by Warren Buffet','https://m.media-amazon.com/images/I/41NHwJXCmnL.jpg',25.00)"> {% endcomment %}
+      {% comment %} </div> {% endcomment %}
+  
+  
+      {% comment %} <div class="card" id="card4"> {% endcomment %}
+          {% comment %} <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1655361806i/61288753.jpg" {% endcomment %}
+              {% comment %} alt="" class="card_img"> {% endcomment %}
+          {% comment %} <div class="container3"> {% endcomment %}
+              {% comment %} <h4><b>The Law of Attraction</b></h4> {% endcomment %}
+              {% comment %} <p>Price:Rs 5.00</p> {% endcomment %}
+          {% comment %} </div> {% endcomment %}
+          {% comment %} <input type="button" class="plus4" {% endcomment %}
+              {% comment %} onclick="updateShoppingCart('The Law Of Attraction','https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1655361806i/61288753.jpg',5.00)"> {% endcomment %}
+      {% comment %} </div> {% endcomment %}
+  
+      {% comment %} <div class="card" id="card5"> {% endcomment %}
+          {% comment %} <img src="https://m.media-amazon.com/images/I/41LMvi+N-iL.jpg" alt="" class="card_img"> {% endcomment %}
+          {% comment %} <div class="container3"> {% endcomment %}
+              {% comment %} <h4><b>The Art Of Saying No</b></h4> {% endcomment %}
+              {% comment %} <p>Price:Rs 8.00</p> {% endcomment %}
+          {% comment %} </div> {% endcomment %}
+          {% comment %} <input type="button" class="plus5" {% endcomment %}
+              {% comment %} onclick="updateShoppingCart('The Art Of Saying No','https://m.media-amazon.com/images/I/41LMvi+N-iL.jpg',8.00)"> {% endcomment %}
+      {% comment %} </div> {% endcomment %}
+      {% for book in books %}
+    <div class="card" id="card{{ forloop.counter }}"  style="margin-left: calc(7.35cm + 6cm * {{ forloop.counter0 }});" >
+        <img src="{{ book.image_path.url }}" alt="" class="card_img">
+        <div class="container3">
+            <h4><b>{{ book.title }}</b></h4>
+            <p>Price: Rs {{ book.price }}</p>
+            
+        </div>
+       <input type="button" class="plus2" onclick="updateShoppingCart('{{book.title}}','{{book.image_path.url}}',{{book.price}})">
+
+    </div>
+    {% endfor %}
+  
+     
+    </div>
+  
+  
+  
+  
+  
+  
+      <input type='button' class='slider'>
+      <button class="susu" style="display:none;">Previous</button>
+  
+  </div>
+  
+
+  
+   <div class='container'>
+    <div class="fic" onclick="redirectToOtherPage4()">Fiction</div>
+    <div class="roma">Romance</div>
+    <div class="padhai">Science</div>
+    <div class="ab">AutoBiographies</div>
+    <div class="kids">Kids</div>
+    <div class="thrill">Thriller</div>
+    <div class="sports">Sports</div>
+
+
+  </div> 
+ 
+ 
+  <script>
+    function redirectToOtherPage() {
+      // Redirect to another page without changing the URL
+      window.location.href = '{% url 'login' %}';
+    }
+  </script>
+  <script>
+    function redirectToOtherPage2() {
+      // Redirect to another page without changing the URL
+      window.location.href = '{% url 'review' %}';
+    }
+  </script>
+  <script>
+    function redirectToOtherPage3() {
+      var x = document.getElementById("cart");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+  </script>
+  <script>
+    function redirectToOtherPage4() {
+      // Redirect to another page without changing the URL
+      window.location.href = '{% url 'fiction' %}';
+    }
+  </script>
+  <script>
+
+    let shoppingCartCount = 0;
+    const cartItems = [];
+    let totalSum = 0;
+
+    function updateShoppingCart(bookName, imageUrl, price) {
+      shoppingCartCount++;
+      const shoppingCartIcon = document.getElementById('shopping-cart-icon');
+      shoppingCartIcon.innerHTML = ` ${shoppingCartCount}`;
+
+      cartItems.push({ name: bookName, image: imageUrl, price: price });
+
+      totalSum += price;
+      document.getElementById('totalSum').textContent = totalSum.toFixed(2);
+
+      const cartList = document.getElementById('cart-items');
+      const cartItem = document.createElement('li');
+      cartItem.innerHTML = `
+          <div style="display: flex; align-items: center;">
+              <div>
+                  <img src="${imageUrl}" alt="${bookName}" style="width: 40px; height: 50px;">
+                  <span style="font-size:0.5cm;">${bookName}</span>
+              </div>
+              <span style="font-size: 0.5cm; margin-left: auto;">Rs${price}</span>
+          </div>
+      `;
+      cartList.appendChild(cartItem);
+    }
+
+    function showCheckout() {
+      const checkoutContainer = document.getElementById('checkoutContainer');
+      checkoutContainer.style.display = 'block';
+    }
+
+    function placeOrder(event) {
+      event.preventDefault();
+      const orderConfirmation = document.getElementById('orderConfirmation');
+      orderConfirmation.style.display = 'block';
+    }
+
+  </script>
+  
+  
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+  const cardsWrapper = document.querySelector('.cards-wrapper');
+  const cards = document.querySelectorAll('.card');
+  {% comment %} const cardWidth = cards[0].clientWidth; {% endcomment %}
+  const cardWidth = document.querySelector('.card').clientWidth / 0.57; // Width of a single card
+  const visibleCards = 0.1; // Number of cards visible at a time
+  const prevBtn = document.querySelector('.susu');
+  const nextBtn = document.querySelector('.slider');
+  let currentPosition = 0;
+
+  // Clone the cards for infinite loop
+  cardsWrapper.innerHTML += cardsWrapper.innerHTML;
+
+  // Move to the previous card
+  prevBtn.addEventListener('click', function() {
+    if (currentPosition > 0) {
+      currentPosition -= cardWidth;
+    } else {
+      currentPosition = cardWidth * (cards.length / 2 - visibleCards);
+    }
+    cardsWrapper.style.transform = `translateX(-${currentPosition}px)`;
+  });
+
+  // Move to the next card
+  nextBtn.addEventListener('click', function() {
+    const maxPosition = cardWidth * (cards.length / 2 - 1);
+    if (currentPosition < maxPosition) {
+      currentPosition += cardWidth;
+    } else {
+      currentPosition = 0;
+    }
+    cardsWrapper.style.transform = `translateX(-${currentPosition}px)`;
+  });
+});
+
+
+</script>
+
+
+<script>
+$(document).ready(function() {
+    $('#searchInput').on('input', function() {
+        const query = $(this).val().trim();
+
+        // Perform AJAX request when there is at least 3 characters in the search input
+        if (query.length >= 3) {
+            $.ajax({
+                url: '/search/', // URL to your Django search view
+                method: 'GET',
+                data: { q: query },
+                success: function(data) {
+                    // Update the search results section with the received data
+                    $('#searchResults').html(data);
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        } else {
+            // Clear search results if search input is empty or less than 3 characters
+            $('#searchResults').html('');
+        }
+    });
+});
+
+</script>
+
+
+
+
+  
+</body>
+
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book List</title>
+ 
+
+
+
+
+</head>
+
+<body>
+
+  <div class="slider-container">
+    <div class="cards-wrapper">
+        <div class="card">Card 1</div>
+        <div class="card">Card 2</div>
+        <div class="card">Card 3</div>
+        <div class="card">Card 4</div>
+        <div class="card">Card 5</div>
+        <div class="card">Card 6</div>
+        <div class="card">Card 7</div>
+        <div class="card">Card 8</div>
+        <div class="card">Card 9</div>
+        <div class="card">Card 10</div>
+    </div>
+    <button class="prev-btn">Previous</button>
+    <button class="next-btn">Next</button>
+</div>
+
+<style>
+  .slider-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%; /* Set your desired width */
+    height: 300px;
+}
+
+.cards-wrapper {
+    display: flex;
+    transition: transform 1s ease;
+    width: fit-content; /* Adjusts wrapper width to fit content */
+}
+
+.card {
+    flex: 0 0 calc(300px / 3); /* Adjust card width based on the number of cards visible */
+    padding: 120px;
+    border: none;
+}
+
+</style>
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function() {
+    const cardsWrapper = document.querySelector('.cards-wrapper');
+    const cards = document.querySelectorAll('.card');
+    const cardWidth = document.querySelector('.card').clientWidth / 0.5; // Width of a single card
+    const visibleCards = 0.1; // Number of cards visible at a time
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    let currentPosition = 0;
+
+    // Clone the cards for infinite loop
+    cardsWrapper.innerHTML += cardsWrapper.innerHTML;
+
+    // Move to the previous card
+    prevBtn.addEventListener('click', function() {
+        if (currentPosition > 0) {
+            currentPosition -= cardWidth;
+        } else {
+            currentPosition = cardWidth * (cards.length / 2 - visibleCards);
+        }
+        cardsWrapper.style.transform = `translateX(-${currentPosition}px)`;
+    });
+
+    // Move to the next card
+    nextBtn.addEventListener('click', function() {
+        const maxPosition = cardWidth * (cards.length / 2 - 1);
+        if (currentPosition < maxPosition) {
+            currentPosition += cardWidth;
+        } else {
+            currentPosition = 0;
+        }
+        cardsWrapper.style.transform = `translateX(-${currentPosition}px)`;
+    });
+});
+
+</script>
+
+
+</body>
+
+</html>

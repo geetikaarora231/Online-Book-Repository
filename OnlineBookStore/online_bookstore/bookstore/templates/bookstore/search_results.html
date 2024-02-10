@@ -1,0 +1,55 @@
+<html>
+    <head>
+        
+
+    </head>
+    <body>
+    {% if query %}
+    <h2>Search Results for "{{ query }}"</h2>
+{% else %}
+    <h2>All Books</h2>
+{% endif %}
+
+{% if books %}
+    <ul>
+        {% for book in books %}
+            <li>{{ book.title }}</li>
+            <div class="card" id="card{{ forloop.counter }}"  style="margin-left: calc(7.35cm + 6cm * {{ forloop.counter0 }});" >
+                <img src="{{ book.image_path.url }}" alt="" class="card_img">
+                <div class="container3">
+                    <h4><b>{{ book.title }}</b></h4>
+                    <p>Price: Rs {{ book.price }}</p>
+                    
+                </div>
+               <input type="button" class="plus2" onclick="updateShoppingCart('{{book.title}}','{{book.image_path.url}}',{{book.price}})">
+        
+            </div>
+            <style>
+                .card_img{
+                    height: 8cm;
+                    width: 5cm;
+                    position:absolute;
+                    
+                  }
+                  
+                  .card{ 
+        
+                    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+                    /* display: block; */
+                    transition: 0.3s;
+                    position:absolute;
+                    margin-top:6.5cm;
+                    
+                    /* background-size:100%;  */
+                    width:5cm;
+                    height:11cm;
+            
+            </style>
+            <!-- Display other book details -->
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No results found.</p>
+{% endif %}
+</body>
+    </html>
